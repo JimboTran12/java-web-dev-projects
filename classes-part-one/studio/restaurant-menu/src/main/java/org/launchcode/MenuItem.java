@@ -1,24 +1,34 @@
 package org.launchcode;
 
 
-public class MenuItem {
-    private String name = "";
-    private String description = "";
-    private String category = "";
-    private double price = 0.0;
-    private boolean isNew = false;
+import java.util.Objects;
 
-    public MenuItem(String name, String description, String category, double price , boolean isNew ) {
+public class MenuItem {
+    private String name;
+
+    private String category;
+    private double price;
+    private boolean isNew;
+
+    public MenuItem(String name, String category, double price ) {
         this.name = name;
-        this.description = description;
+
         this.category = category;
         this.price = price;
-        this.isNew = isNew;
+        this.isNew = true;
     }
-    public MenuItem(String name, String description, String category) {
-        this(name, description, category, 0.0, false);
+    public MenuItem(){
+        this("","",0.0);
     }
-    public MenuItem(){}
+
+    public void itemPrint() {
+        System.out.println("\n*******\nDish: " + name +
+                "\nCategory: " + category +
+                "\n Price: " + price + "\n*******"
+        );
+
+    }
+
 
     public boolean isNew() {
         return isNew;
@@ -32,9 +42,7 @@ public class MenuItem {
         return category;
     }
 
-    public String getDescription() {
-        return description;
-    }
+
 
     public String getName() {
         return name;
@@ -44,9 +52,7 @@ public class MenuItem {
         this.category = category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -58,5 +64,32 @@ public class MenuItem {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return Double.compare(price, menuItem.price) == 0 && isNew == menuItem.isNew && Objects.equals(name.toLowerCase(), menuItem.name.toLowerCase()) && Objects.equals(category.toLowerCase(), menuItem.category.toLowerCase());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, category, price, isNew);
+    }
+
+    @Override
+    public String toString() {
+        if (isNew) {
+            return "\n***NEW****\nDish: " + name +
+                    "\nCategory: " + category +
+                    "\nPrice: " + price + "\n*******\n";
+        }
+        else {
+            return "\n*******\nDish: " + name +
+                    "\nCategory: " + category +
+                    "\nPrice: " + price + "\n*******\n";
+        }
     }
 }
