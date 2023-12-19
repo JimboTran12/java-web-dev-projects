@@ -1,5 +1,7 @@
 package org.launchcode;
 
+import java.util.Objects;
+
 public class Car {
     private String make;
     private String model;
@@ -93,4 +95,16 @@ public class Car {
         this.odometer += milesAbleToTravel;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return getGasTankSize() == car.getGasTankSize() && Double.compare(getGasTankLevel(), car.getGasTankLevel()) == 0 && Double.compare(getMilesPerGallon(), car.getMilesPerGallon()) == 0 && Double.compare(getOdometer(), car.getOdometer()) == 0 && Objects.equals(getMake(), car.getMake()) && Objects.equals(getModel(), car.getModel());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMake(), getModel(), getGasTankSize(), getGasTankLevel(), getMilesPerGallon(), getOdometer());
+    }
 }
